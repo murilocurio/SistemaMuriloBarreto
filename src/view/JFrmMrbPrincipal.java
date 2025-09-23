@@ -144,13 +144,13 @@ public class JFrmMrbPrincipal extends javax.swing.JFrame {
 
     private void jMnIMrbProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnIMrbProdutosActionPerformed
         // TODO add your handling code here:
-        JDlgMrbProdutos jDlgProdutos = new JDlgMrbProdutos(this, true);
+        JDlgMrbPagamentos jDlgProdutos = new JDlgMrbPagamentos(this, true);
         jDlgProdutos.setVisible(true);
     }//GEN-LAST:event_jMnIMrbProdutosActionPerformed
 
     private void jMnIMrbPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnIMrbPagamentoActionPerformed
         // TODO add your handling code here:
-        JDlgMrbPagamento jDlgPagamento = new JDlgMrbPagamento(this, true);
+        JDlgMrbPagamentos jDlgPagamento = new JDlgMrbPagamentos(this, true);
         jDlgPagamento.setVisible(true);
     }//GEN-LAST:event_jMnIMrbPagamentoActionPerformed
 
