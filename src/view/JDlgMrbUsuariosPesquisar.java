@@ -10,7 +10,7 @@ package view;
  */
 public class JDlgMrbUsuariosPesquisar extends javax.swing.JDialog {
     /**
-     * Creates new form JDlgMrbUsuarioPesquisar
+     * Creates new form JDlgMrbUsuariosPesquisar
      */
     public JDlgMrbUsuariosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
