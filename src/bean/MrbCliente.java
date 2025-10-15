@@ -225,6 +225,11 @@ public class MrbCliente  implements java.io.Serializable {
     public void setMrbAtivo(String mrbAtivo) {
         this.mrbAtivo = mrbAtivo;
     }
+    
+    @Override
+    public String toString() {
+        return this.mrbNome;
+    }
 
 }
 

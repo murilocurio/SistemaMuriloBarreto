@@ -286,19 +286,22 @@ public class JDlgMrbProdutos extends javax.swing.JDialog {
         }
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
                 jBtnAlterar, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
                 jBtnAlterar, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JDlgMrbProdutosPesquisar jDlgProdutosPesquisar = new JDlgMrbProdutosPesquisar(null, true);
+        jDlgProdutosPesquisar.setTelaPai(this);
         jDlgProdutosPesquisar.setVisible(true);
         Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnPesquisar);

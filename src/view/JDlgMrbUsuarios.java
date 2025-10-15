@@ -329,7 +329,9 @@ public class JDlgMrbUsuarios extends javax.swing.JDialog {
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
                 jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
                 jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
+                    jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -337,12 +339,15 @@ public class JDlgMrbUsuarios extends javax.swing.JDialog {
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
                 jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
                 jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
+                    jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JDlgMrbUsuariosPesquisar jDlgUsuariosPesquisar = new JDlgMrbUsuariosPesquisar(null, true);
+        jDlgUsuariosPesquisar.setTelaPai(this);
         jDlgUsuariosPesquisar.setVisible(true);
         Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnPesquisar);

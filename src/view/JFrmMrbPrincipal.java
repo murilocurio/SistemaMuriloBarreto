@@ -37,7 +37,8 @@ public class JFrmMrbPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         JMnlMrbSair = new javax.swing.JMenuItem();
         jMnlMrbMovimento = new javax.swing.JMenu();
-        jMnIMrbVendas = new javax.swing.JMenuItem();
+        jMnIMrbVendaProdutos = new javax.swing.JMenuItem();
+        jMnIMrbVenda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,15 +99,25 @@ public class JFrmMrbPrincipal extends javax.swing.JFrame {
 
         jMnlMrbMovimento.setText("Movimento");
 
-        jMnIMrbVendas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMnIMrbVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/apple.png"))); // NOI18N
-        jMnIMrbVendas.setText("Vendas de Produtos");
-        jMnIMrbVendas.addActionListener(new java.awt.event.ActionListener() {
+        jMnIMrbVendaProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMnIMrbVendaProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/apple.png"))); // NOI18N
+        jMnIMrbVendaProdutos.setText("Vendas de Produtos");
+        jMnIMrbVendaProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMnIMrbVendasActionPerformed(evt);
+                jMnIMrbVendaProdutosActionPerformed(evt);
             }
         });
-        jMnlMrbMovimento.add(jMnIMrbVendas);
+        jMnlMrbMovimento.add(jMnIMrbVendaProdutos);
+
+        jMnIMrbVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMnIMrbVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrot.png"))); // NOI18N
+        jMnIMrbVenda.setText("Venda");
+        jMnIMrbVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMnIMrbVendaActionPerformed(evt);
+            }
+        });
+        jMnlMrbMovimento.add(jMnIMrbVenda);
 
         jMenuBar1.add(jMnlMrbMovimento);
 
@@ -126,9 +137,11 @@ public class JFrmMrbPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMnIMrbVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnIMrbVendasActionPerformed
+    private void jMnIMrbVendaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnIMrbVendaProdutosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMnIMrbVendasActionPerformed
+        JDlgMrbVendaProdutos jDlgVendaProdutos = new JDlgMrbVendaProdutos(this, true);
+        jDlgVendaProdutos.setVisible(true);
+    }//GEN-LAST:event_jMnIMrbVendaProdutosActionPerformed
 
     private void jMnIMrbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnIMrbUsuarioActionPerformed
         // TODO add your handling code here:
@@ -158,6 +171,12 @@ public class JFrmMrbPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_JMnlMrbSairActionPerformed
+
+    private void jMnIMrbVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnIMrbVendaActionPerformed
+        // TODO add your handling code here:
+        JDlgMrbVenda jDlgVenda = new JDlgMrbVenda(this, true);
+        jDlgVenda.setVisible(true);
+    }//GEN-LAST:event_jMnIMrbVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +223,8 @@ public class JFrmMrbPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMnIMrbPagamento;
     private javax.swing.JMenuItem jMnIMrbProdutos;
     private javax.swing.JMenuItem jMnIMrbUsuario;
-    private javax.swing.JMenuItem jMnIMrbVendas;
+    private javax.swing.JMenuItem jMnIMrbVenda;
+    private javax.swing.JMenuItem jMnIMrbVendaProdutos;
     private javax.swing.JMenu jMnlMrbCadastro;
     private javax.swing.JMenu jMnlMrbMovimento;
     private javax.swing.JPopupMenu.Separator jSeparator1;

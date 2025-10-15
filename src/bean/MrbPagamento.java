@@ -114,6 +114,10 @@ public class MrbPagamento  implements java.io.Serializable {
     public void setMrbConfirmacao(String mrbConfirmacao) {
         this.mrbConfirmacao = mrbConfirmacao;
     }
+    @Override
+    public String toString() {
+        return this.mrbConfirmacao;
+    }
 
 }
 

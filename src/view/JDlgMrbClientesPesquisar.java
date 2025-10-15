@@ -4,6 +4,10 @@
  */
 package view;
 
+import bean.MrbCliente;
+import dao.ClientesDAO;
+import java.util.List;
+
 /**
  *
  * @author PC
@@ -12,11 +16,21 @@ public class JDlgMrbClientesPesquisar extends javax.swing.JDialog {
     /**
      * Creates new form JDlgMrbClientesPesquisar
      */
+    private JDlgMrbClientes jDlgClientes;
+    MrbControllerClientes controllerClientes;
     public JDlgMrbClientesPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pesquisar Clientes");
+        controllerClientes = new MrbControllerClientes();
+        ClientesDAO mrbClientesDAO = new ClientesDAO();
+        List lista = (List) mrbClientesDAO.listAll();
+        controllerClientes.setList(lista);
+        jTable1.setModel(controllerClientes);
+    }
+    public void setTelaPai( JDlgMrbClientes jDlgClientes) {;
+        this.jDlgClientes = jDlgClientes;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +86,9 @@ public class JDlgMrbClientesPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        MrbCliente clientes =  controllerClientes.getBean( jTable1.getSelectedRow() );
+        jDlgClientes.beanView(clientes);
+        this.setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     /**

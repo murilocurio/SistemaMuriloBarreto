@@ -324,6 +324,7 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
         // TODO add your handling code here:
         JDlgMrbPagamentosPesquisar jDlgPagamentosPesquisar = new JDlgMrbPagamentosPesquisar(null, true);
         jDlgPagamentosPesquisar.setVisible(true);
+        jDlgPagamentosPesquisar.setTelaPai(this);
         Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
@@ -368,14 +369,16 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
         }
         Util.habilitar(false, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
                 jBtnAlterar, jFmtMrbCpf, jChbMrbConfirmar, jFmtMrbData, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtMrbCodigo, jFmtMrbData, jChbMrbConfirmar, jCboMrbTipo, jCboMrbStatus, jTxtMrbValor, jFmtMrbCpf, jFmtMrbData);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
                 jBtnAlterar, jFmtMrbCpf, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtMrbCodigo, jFmtMrbData, jChbMrbConfirmar, jCboMrbTipo, jCboMrbStatus, jTxtMrbValor, jFmtMrbCpf, jFmtMrbData);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**

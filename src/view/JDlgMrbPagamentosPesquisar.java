@@ -4,6 +4,10 @@
  */
 package view;
 
+import bean.MrbPagamento;
+import dao.PagamentosDAO;
+import java.util.List;
+
 /**
  *
  * @author PC
@@ -12,11 +16,21 @@ public class JDlgMrbPagamentosPesquisar extends javax.swing.JDialog {
     /**
      * Creates new form JDlgMrbPagamentosPesquisar
      */
+    private JDlgMrbPagamentos jDlgPagamentos;
+    MrbControllerPagamento controllerPagamentos;
     public JDlgMrbPagamentosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pesquisar Pagamentos");
+        controllerPagamentos = new MrbControllerPagamento();
+        PagamentosDAO mrbPagamentosDAO = new PagamentosDAO();
+        List lista = (List) mrbPagamentosDAO.listAll();
+        controllerPagamentos.setList(lista);
+        jTable1.setModel(controllerPagamentos);
+    }
+    public void setTelaPai( JDlgMrbPagamentos jDlgPagamentos) {;
+        this.jDlgPagamentos = jDlgPagamentos;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +86,9 @@ public class JDlgMrbPagamentosPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        MrbPagamento pagamento =  controllerPagamentos.getBean( jTable1.getSelectedRow() );
+        jDlgPagamentos.beanView(pagamento);
+        this.setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     /**

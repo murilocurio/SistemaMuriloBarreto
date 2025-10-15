@@ -44,34 +44,34 @@ public class Util {
         return resp == JOptionPane.YES_NO_OPTION;
     }
 
-    public static int strToInt(String num) {
-        return Integer.valueOf(num);
+    public static int strToInt(String str) {
+        return Integer.valueOf(str);
     }
 
     public static String intToStr(int num) {
         return String.valueOf(num);
     }
 
-    public static double strToDouble(String num) {
-        return Double.valueOf(num);
+    public static double strToDouble(String cad) {
+        return Double.valueOf(cad);
     }
 
-    public static String doubleToStr(double num) {
-        return String.valueOf(num);
-    }
-
-    public static Date strToDate(String num) {
+    public static Date strToDate(String str) {
         SimpleDateFormat dateNascFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            return dateNascFormat.parse(num);
+            return dateNascFormat.parse(str);
         } catch (ParseException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public static String dateToStr(Date num) {
+    public static String dateToStr(Date data) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(num);
+        return sdf.format(data);
+    }
+
+    public static String doubleToStr(double num) {
+        return String.valueOf(num);
     }
 }

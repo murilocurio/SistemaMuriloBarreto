@@ -4,6 +4,10 @@
  */
 package view;
 
+import bean.MrbProdutos;
+import dao.ProdutosDAO;
+import java.util.List;
+
 /**
  *
  * @author PC
@@ -12,11 +16,22 @@ public class JDlgMrbProdutosPesquisar extends javax.swing.JDialog {
     /**
      * Creates new form JDlgMrbProdutosPesquisar
      */
+    private JDlgMrbProdutos jDlgProdutos;
+    MrbControllerProdutos controllerProdutos;
+    
     public JDlgMrbProdutosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pesquisar Produtos");
+        controllerProdutos = new MrbControllerProdutos();
+        ProdutosDAO mrbProdutosDAO = new ProdutosDAO();
+        List lista = (List) mrbProdutosDAO.listAll();
+        controllerProdutos.setList(lista);
+        jTable1.setModel(controllerProdutos);
+    }
+    public void setTelaPai( JDlgMrbProdutos jDlgProdutos) {;
+        this.jDlgProdutos = jDlgProdutos;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +87,9 @@ public class JDlgMrbProdutosPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        MrbProdutos produtos =  controllerProdutos.getBean( jTable1.getSelectedRow() );
+        jDlgProdutos.beanView(produtos);
+        this.setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     /**
