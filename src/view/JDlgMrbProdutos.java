@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MrbProdutos;
+import dao.ProdutosDAO;
 import tools.Util;
 
 /**
@@ -12,17 +14,43 @@ import tools.Util;
  */
 public class JDlgMrbProdutos extends javax.swing.JDialog {
 
+    private boolean incluir;
+
     /**
      * Creates new form JDlgMrbProdutos
      */
     public JDlgMrbProdutos(java.awt.Frame parent, boolean modal) {
+
         super(parent, modal);
         initComponents();
-        setTitle("Cadastrar Pagamentos");
+        setTitle("Cadastrar Produtos");
         setLocationRelativeTo(null);
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
-            jBtnAlterar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+    }
+
+    public MrbProdutos viewBean() {
+        MrbProdutos mrbProdutos = new MrbProdutos();
+        int codigo = Util.strToInt(jTxtMrbCodigo.getText());
+        mrbProdutos.setMrbIdProduto(codigo);
+        mrbProdutos.setMrbNomeProduto(jTxtMrbNome.getText());
+        mrbProdutos.setMrbPreco(Util.strToDouble(jTxtMrbPreco.getText()));
+        mrbProdutos.setMrbPeso(Util.strToDouble(jTxtMrbPeso.getText()));
+        mrbProdutos.setMrbUnidadeMedida(jCboMrbMedida.getSelectedIndex());
+        mrbProdutos.setMrbTipo(jCboMrbTipo.getSelectedIndex());
+        mrbProdutos.setMrbDataColheita(Util.strToDate(jFmtMrbData.getText()));
+        return mrbProdutos;
+    }
+
+    public void beanView(MrbProdutos mrbProdutos) {
+        jTxtMrbCodigo.setText(Util.intToStr(mrbProdutos.getMrbIdProduto()));
+        jTxtMrbNome.setText(mrbProdutos.getMrbNomeProduto());
+        jTxtMrbPreco.setText(Util.doubleToStr(mrbProdutos.getMrbPreco()));
+        jTxtMrbPeso.setText(Util.doubleToStr(mrbProdutos.getMrbPeso()));
+        jCboMrbMedida.setSelectedIndex(mrbProdutos.getMrbUnidadeMedida());
+        jCboMrbTipo.setSelectedIndex(mrbProdutos.getMrbTipo());
+        jFmtMrbData.setText(Util.dateToStr(mrbProdutos.getMrbDataColheita()));
     }
 
     /**
@@ -238,7 +266,9 @@ public class JDlgMrbProdutos extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("deseja excluir o registro?")){
+        if (Util.perguntar("deseja excluir o registro?") == true) {
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            produtosDAO.delete(viewBean());
             Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida);
             Util.mensagem("Exluido com sucesso!");
         } else {
@@ -248,36 +278,48 @@ public class JDlgMrbProdutos extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        ProdutosDAO produtosDAO = new ProdutosDAO();
+        if (incluir) {
+            produtosDAO.insert(viewBean());
+        } else {
+            produtosDAO.update(viewBean());
+        }
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
-            jBtnAlterar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
-            jBtnAlterar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgMrbProdutosPesquisar jDlgProdutosPesquisar = new JDlgMrbProdutosPesquisar(null,true);
+        JDlgMrbProdutosPesquisar jDlgProdutosPesquisar = new JDlgMrbProdutosPesquisar(null, true);
         jDlgProdutosPesquisar.setVisible(true);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
+        Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+        incluir = true;
         Util.habilitar(true, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
-            jBtnAlterar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbCodigo.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtMrbCodigo, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
-            jBtnAlterar, jBtnConfirmar, jBtnCancelar);
+        incluir = false;
+        Util.habilitar(true, jTxtMrbNome, jTxtMrbPreco, jTxtMrbPeso, jFmtMrbData, jCboMrbTipo, jCboMrbMedida,
+                jBtnAlterar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbNome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     /**

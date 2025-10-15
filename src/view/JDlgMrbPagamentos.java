@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MrbPagamento;
+import dao.PagamentosDAO;
 import tools.Util;
 
 /**
@@ -13,8 +15,9 @@ import tools.Util;
 public class JDlgMrbPagamentos extends javax.swing.JDialog {
 
     private boolean incluir;
+
     /**
-     * Creates new form JDlgMrbPagamentos
+     * Creates new form JDlgMrbPagamento
      */
     public JDlgMrbPagamentos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -26,27 +29,27 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }
 
-    public MrbPagamentos viewBean() {
-        MrbPagamentos mrbPagamentos = new MrbPagamentos();
+    public MrbPagamento viewBean() {
+        MrbPagamento mrbPagamentos = new MrbPagamento();
         int codigo = Util.strToInt(jTxtMrbCodigo.getText());
-        mrbPagamentos.setMrbIdPagamentos(codigo);
-        mrbPagamentos.setMrbTipo(jCboMrbTipo.getSelectedIndex());
-        mrbPagamentos.setMrbStatus(jCboMrbStatus.getSelectedIndex());
-        mrbPagamentos.setMrbConfirmar(jChbMrbConfirmar.isSelected() ? "S" : "N");
+        mrbPagamentos.setMrbIdPagamento(codigo);
+        mrbPagamentos.setMrbTipoPagamento(jCboMrbTipo.getSelectedIndex());
+        mrbPagamentos.setMrbStatusPagamento(jCboMrbStatus.getSelectedIndex());
+        mrbPagamentos.setMrbConfirmacao(jChbMrbConfirmar.isSelected() ? "S" : "N");
         mrbPagamentos.setMrbCpf(jFmtMrbCpf.getText());
-        mrbPagamentos.setTotal(Util.strToDouble(jTxtMrbValor.getText()));
-        mrbPagamentos.setMrbData(Util.strToDate(jFmtMrbData.getText()));
+        mrbPagamentos.setMrbValorPago(Util.strToDouble(jTxtMrbValor.getText()));
+        mrbPagamentos.setMrbDataPagamento(Util.strToDate(jFmtMrbData.getText()));
         return mrbPagamentos;
     }
 
-    public void beanView(MrbPagamentos mrbPagamentos) {
-        jTxtMrbCodigo.setText(Util.intToStr(mrbPagamentos.getMrbIdPagamentos()));
-        jCboMrbTipo.setSelectedIndex(mrbPagamentos.getMrbTipo());
-        jCboMrbStatus.setSelectedIndex(mrbPagamentos.getMrbStatus());
-        jChbMrbConfirmar.setSelected("S".equals(mrbPagamentos.getMrbConfirmar()));
-        jFmtMrbCpf.setText(mrbPagamentos.getMrbCpf());
-        jTxtMrbValor.setText(Util.doubleToStr(mrbPagamentos.getTotal()));
-        jFmtMrbData.setText(Util.dateToStr(mrbPagamentos.getMrbData()));
+    public void beanView(MrbPagamento mrbPagamento) {
+        jTxtMrbCodigo.setText(Util.intToStr(mrbPagamento.getMrbIdPagamento()));
+        jCboMrbTipo.setSelectedIndex(mrbPagamento.getMrbTipoPagamento());
+        jCboMrbStatus.setSelectedIndex(mrbPagamento.getMrbStatusPagamento());
+        jChbMrbConfirmar.setSelected("S".equals(mrbPagamento.getMrbConfirmacao()));
+        jFmtMrbCpf.setText(mrbPagamento.getMrbCpf());
+        jTxtMrbValor.setText(Util.doubleToStr(mrbPagamento.getMrbValorPago()));
+        jFmtMrbData.setText(Util.dateToStr(mrbPagamento.getMrbDataPagamento()));
     }
 
     /**
@@ -321,6 +324,8 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
         // TODO add your handling code here:
         JDlgMrbPagamentosPesquisar jDlgPagamentosPesquisar = new JDlgMrbPagamentosPesquisar(null, true);
         jDlgPagamentosPesquisar.setVisible(true);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
+        Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
@@ -390,13 +395,13 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgMrbPagamentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgMrbPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgMrbPagamentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgMrbPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgMrbPagamentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgMrbPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgMrbPagamentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgMrbPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
