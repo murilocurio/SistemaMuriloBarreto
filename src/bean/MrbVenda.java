@@ -2,17 +2,13 @@ package bean;
 // Generated Oct 14, 2025 8:56:11 PM by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,16 +27,15 @@ public class MrbVenda  implements java.io.Serializable {
      private MrbCliente mrbCliente;
      private MrbPagamento mrbPagamento;
      private Date mrbDataVenda;
-     private BigDecimal mrbValorTotal;
+     private double mrbValorTotal;
      private String mrbStatusVenda;
      private String mrbTipoEntrega;
-     private Set mrbVendaprodutoses = new HashSet(0);
 
     public MrbVenda() {
     }
 
 	
-    public MrbVenda(int mrbIdVenda, MrbCliente mrbCliente, MrbPagamento mrbPagamento, Date mrbDataVenda, BigDecimal mrbValorTotal, String mrbStatusVenda, String mrbTipoEntrega) {
+    public MrbVenda(int mrbIdVenda, MrbCliente mrbCliente, MrbPagamento mrbPagamento, Date mrbDataVenda, double mrbValorTotal, String mrbStatusVenda, String mrbTipoEntrega) {
         this.mrbIdVenda = mrbIdVenda;
         this.mrbCliente = mrbCliente;
         this.mrbPagamento = mrbPagamento;
@@ -48,16 +43,6 @@ public class MrbVenda  implements java.io.Serializable {
         this.mrbValorTotal = mrbValorTotal;
         this.mrbStatusVenda = mrbStatusVenda;
         this.mrbTipoEntrega = mrbTipoEntrega;
-    }
-    public MrbVenda(int mrbIdVenda, MrbCliente mrbCliente, MrbPagamento mrbPagamento, Date mrbDataVenda, BigDecimal mrbValorTotal, String mrbStatusVenda, String mrbTipoEntrega, Set mrbVendaprodutoses) {
-       this.mrbIdVenda = mrbIdVenda;
-       this.mrbCliente = mrbCliente;
-       this.mrbPagamento = mrbPagamento;
-       this.mrbDataVenda = mrbDataVenda;
-       this.mrbValorTotal = mrbValorTotal;
-       this.mrbStatusVenda = mrbStatusVenda;
-       this.mrbTipoEntrega = mrbTipoEntrega;
-       this.mrbVendaprodutoses = mrbVendaprodutoses;
     }
    
      @Id 
@@ -104,11 +89,11 @@ public class MrbVenda  implements java.io.Serializable {
 
     
     @Column(name="mrb_valorTotal", nullable=false, precision=10)
-    public BigDecimal getMrbValorTotal() {
+    public double getMrbValorTotal() {
         return this.mrbValorTotal;
     }
     
-    public void setMrbValorTotal(BigDecimal mrbValorTotal) {
+    public void setMrbValorTotal(double mrbValorTotal) {
         this.mrbValorTotal = mrbValorTotal;
     }
 
@@ -131,18 +116,6 @@ public class MrbVenda  implements java.io.Serializable {
     public void setMrbTipoEntrega(String mrbTipoEntrega) {
         this.mrbTipoEntrega = mrbTipoEntrega;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mrbVenda")
-    public Set getMrbVendaprodutoses() {
-        return this.mrbVendaprodutoses;
-    }
-    
-    public void setMrbVendaprodutoses(Set mrbVendaprodutoses) {
-        this.mrbVendaprodutoses = mrbVendaprodutoses;
-    }
-
-
-
 
 }
 

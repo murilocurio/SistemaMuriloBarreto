@@ -2,15 +2,11 @@ package bean;
 // Generated Oct 14, 2025 8:56:11 PM by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,19 +22,18 @@ public class MrbPagamento  implements java.io.Serializable {
 
 
      private int mrbIdPagamento;
-     private String mrbTipoPagamento;
-     private String mrbStatusPagamento;
+     private int mrbTipoPagamento;
+     private int mrbStatusPagamento;
      private Date mrbDataPagamento;
-     private BigDecimal mrbValorPago;
+     private double mrbValorPago;
      private String mrbCpf;
      private String mrbConfirmacao;
-     private Set mrbVendas = new HashSet(0);
 
     public MrbPagamento() {
     }
 
 	
-    public MrbPagamento(int mrbIdPagamento, String mrbTipoPagamento, String mrbStatusPagamento, Date mrbDataPagamento, BigDecimal mrbValorPago, String mrbCpf, String mrbConfirmacao) {
+    public MrbPagamento(int mrbIdPagamento, int mrbTipoPagamento, int mrbStatusPagamento, Date mrbDataPagamento, double mrbValorPago, String mrbCpf, String mrbConfirmacao) {
         this.mrbIdPagamento = mrbIdPagamento;
         this.mrbTipoPagamento = mrbTipoPagamento;
         this.mrbStatusPagamento = mrbStatusPagamento;
@@ -47,17 +42,7 @@ public class MrbPagamento  implements java.io.Serializable {
         this.mrbCpf = mrbCpf;
         this.mrbConfirmacao = mrbConfirmacao;
     }
-    public MrbPagamento(int mrbIdPagamento, String mrbTipoPagamento, String mrbStatusPagamento, Date mrbDataPagamento, BigDecimal mrbValorPago, String mrbCpf, String mrbConfirmacao, Set mrbVendas) {
-       this.mrbIdPagamento = mrbIdPagamento;
-       this.mrbTipoPagamento = mrbTipoPagamento;
-       this.mrbStatusPagamento = mrbStatusPagamento;
-       this.mrbDataPagamento = mrbDataPagamento;
-       this.mrbValorPago = mrbValorPago;
-       this.mrbCpf = mrbCpf;
-       this.mrbConfirmacao = mrbConfirmacao;
-       this.mrbVendas = mrbVendas;
-    }
-   
+
      @Id 
 
     
@@ -72,21 +57,21 @@ public class MrbPagamento  implements java.io.Serializable {
 
     
     @Column(name="mrb_tipoPagamento", nullable=false, length=50)
-    public String getMrbTipoPagamento() {
+    public int getMrbTipoPagamento() {
         return this.mrbTipoPagamento;
     }
     
-    public void setMrbTipoPagamento(String mrbTipoPagamento) {
+    public void setMrbTipoPagamento(int mrbTipoPagamento) {
         this.mrbTipoPagamento = mrbTipoPagamento;
     }
 
     
     @Column(name="mrb_statusPagamento", nullable=false, length=1)
-    public String getMrbStatusPagamento() {
+    public int getMrbStatusPagamento() {
         return this.mrbStatusPagamento;
     }
     
-    public void setMrbStatusPagamento(String mrbStatusPagamento) {
+    public void setMrbStatusPagamento(int mrbStatusPagamento) {
         this.mrbStatusPagamento = mrbStatusPagamento;
     }
 
@@ -102,11 +87,11 @@ public class MrbPagamento  implements java.io.Serializable {
 
     
     @Column(name="mrb_valorPago", nullable=false, precision=5)
-    public BigDecimal getMrbValorPago() {
+    public double getMrbValorPago() {
         return this.mrbValorPago;
     }
     
-    public void setMrbValorPago(BigDecimal mrbValorPago) {
+    public void setMrbValorPago(double mrbValorPago) {
         this.mrbValorPago = mrbValorPago;
     }
 
@@ -129,18 +114,6 @@ public class MrbPagamento  implements java.io.Serializable {
     public void setMrbConfirmacao(String mrbConfirmacao) {
         this.mrbConfirmacao = mrbConfirmacao;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mrbPagamento")
-    public Set getMrbVendas() {
-        return this.mrbVendas;
-    }
-    
-    public void setMrbVendas(Set mrbVendas) {
-        this.mrbVendas = mrbVendas;
-    }
-
-
-
 
 }
 

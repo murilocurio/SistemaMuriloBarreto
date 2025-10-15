@@ -3,13 +3,10 @@ package bean;
 
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +27,7 @@ public class MrbCliente  implements java.io.Serializable {
      private String mrbNome;
      private String mrbCpf;
      private String mrbRg;
-     private String mrbSexo;
+     private int mrbSexo;
      private Date mrbDataNascimento;
      private String mrbEmail;
      private String mrbCep;
@@ -42,13 +39,13 @@ public class MrbCliente  implements java.io.Serializable {
      private String mrbNumero;
      private String mrbRua;
      private String mrbAtivo;
-     private Set mrbVendas = new HashSet(0);
+
 
     public MrbCliente() {
     }
 
 	
-    public MrbCliente(int mrbIdCliente, String mrbNome, String mrbCpf, String mrbRg, String mrbSexo, Date mrbDataNascimento, String mrbEmail, String mrbCep, String mrbEndereco, String mrbBairro, String mrbComplemento, String mrbTelefoneResidencial, String mrbCelular, String mrbNumero, String mrbRua, String mrbAtivo) {
+    public MrbCliente(int mrbIdCliente, String mrbNome, String mrbCpf, String mrbRg, int mrbSexo, Date mrbDataNascimento, String mrbEmail, String mrbCep, String mrbEndereco, String mrbBairro, String mrbComplemento, String mrbTelefoneResidencial, String mrbCelular, String mrbNumero, String mrbRua, String mrbAtivo) {
         this.mrbIdCliente = mrbIdCliente;
         this.mrbNome = mrbNome;
         this.mrbCpf = mrbCpf;
@@ -65,25 +62,6 @@ public class MrbCliente  implements java.io.Serializable {
         this.mrbNumero = mrbNumero;
         this.mrbRua = mrbRua;
         this.mrbAtivo = mrbAtivo;
-    }
-    public MrbCliente(int mrbIdCliente, String mrbNome, String mrbCpf, String mrbRg, String mrbSexo, Date mrbDataNascimento, String mrbEmail, String mrbCep, String mrbEndereco, String mrbBairro, String mrbComplemento, String mrbTelefoneResidencial, String mrbCelular, String mrbNumero, String mrbRua, String mrbAtivo, Set mrbVendas) {
-       this.mrbIdCliente = mrbIdCliente;
-       this.mrbNome = mrbNome;
-       this.mrbCpf = mrbCpf;
-       this.mrbRg = mrbRg;
-       this.mrbSexo = mrbSexo;
-       this.mrbDataNascimento = mrbDataNascimento;
-       this.mrbEmail = mrbEmail;
-       this.mrbCep = mrbCep;
-       this.mrbEndereco = mrbEndereco;
-       this.mrbBairro = mrbBairro;
-       this.mrbComplemento = mrbComplemento;
-       this.mrbTelefoneResidencial = mrbTelefoneResidencial;
-       this.mrbCelular = mrbCelular;
-       this.mrbNumero = mrbNumero;
-       this.mrbRua = mrbRua;
-       this.mrbAtivo = mrbAtivo;
-       this.mrbVendas = mrbVendas;
     }
    
      @Id 
@@ -130,11 +108,11 @@ public class MrbCliente  implements java.io.Serializable {
 
     
     @Column(name="mrb_sexo", nullable=false, length=1)
-    public String getMrbSexo() {
+    public int getMrbSexo() {
         return this.mrbSexo;
     }
     
-    public void setMrbSexo(String mrbSexo) {
+    public void setMrbSexo(int mrbSexo) {
         this.mrbSexo = mrbSexo;
     }
 
@@ -247,18 +225,6 @@ public class MrbCliente  implements java.io.Serializable {
     public void setMrbAtivo(String mrbAtivo) {
         this.mrbAtivo = mrbAtivo;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mrbCliente")
-    public Set getMrbVendas() {
-        return this.mrbVendas;
-    }
-    
-    public void setMrbVendas(Set mrbVendas) {
-        this.mrbVendas = mrbVendas;
-    }
-
-
-
 
 }
 

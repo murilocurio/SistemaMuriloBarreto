@@ -2,7 +2,6 @@ package bean;
 // Generated Oct 14, 2025 8:56:11 PM by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,13 +24,13 @@ public class MrbVendaprodutos  implements java.io.Serializable {
      private MrbProdutos mrbProdutos;
      private MrbVenda mrbVenda;
      private int mrbQuantidade;
-     private BigDecimal mrbPrecoUnitario;
+     private double mrbPrecoUnitario;
      private String mrbUnidadeVenda;
 
     public MrbVendaprodutos() {
     }
 
-    public MrbVendaprodutos(int mrbIdVendaProduto, MrbProdutos mrbProdutos, MrbVenda mrbVenda, int mrbQuantidade, BigDecimal mrbPrecoUnitario, String mrbUnidadeVenda) {
+    public MrbVendaprodutos(int mrbIdVendaProduto, MrbProdutos mrbProdutos, MrbVenda mrbVenda, int mrbQuantidade, double mrbPrecoUnitario, String mrbUnidadeVenda) {
        this.mrbIdVendaProduto = mrbIdVendaProduto;
        this.mrbProdutos = mrbProdutos;
        this.mrbVenda = mrbVenda;
@@ -84,11 +83,11 @@ public class MrbVendaprodutos  implements java.io.Serializable {
 
     
     @Column(name="mrb_precoUnitario", nullable=false, precision=5)
-    public BigDecimal getMrbPrecoUnitario() {
+    public double getMrbPrecoUnitario() {
         return this.mrbPrecoUnitario;
     }
     
-    public void setMrbPrecoUnitario(BigDecimal mrbPrecoUnitario) {
+    public void setMrbPrecoUnitario(double mrbPrecoUnitario) {
         this.mrbPrecoUnitario = mrbPrecoUnitario;
     }
 

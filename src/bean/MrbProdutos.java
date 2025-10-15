@@ -2,15 +2,11 @@ package bean;
 // Generated Oct 14, 2025 8:56:11 PM by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,18 +23,17 @@ public class MrbProdutos  implements java.io.Serializable {
 
      private int mrbIdProduto;
      private String mrbNomeProduto;
-     private BigDecimal mrbPreco;
-     private String mrbTipo;
+     private double mrbPreco;
+     private int mrbTipo;
      private Date mrbDataColheita;
-     private BigDecimal mrbPeso;
-     private String mrbUnidadeMedida;
-     private Set mrbVendaprodutoses = new HashSet(0);
+     private double mrbPeso;
+     private int mrbUnidadeMedida;
 
     public MrbProdutos() {
     }
 
 	
-    public MrbProdutos(int mrbIdProduto, String mrbNomeProduto, BigDecimal mrbPreco, String mrbTipo, Date mrbDataColheita, BigDecimal mrbPeso, String mrbUnidadeMedida) {
+    public MrbProdutos(int mrbIdProduto, String mrbNomeProduto, double mrbPreco, int mrbTipo, Date mrbDataColheita, double mrbPeso, int mrbUnidadeMedida) {
         this.mrbIdProduto = mrbIdProduto;
         this.mrbNomeProduto = mrbNomeProduto;
         this.mrbPreco = mrbPreco;
@@ -47,17 +42,7 @@ public class MrbProdutos  implements java.io.Serializable {
         this.mrbPeso = mrbPeso;
         this.mrbUnidadeMedida = mrbUnidadeMedida;
     }
-    public MrbProdutos(int mrbIdProduto, String mrbNomeProduto, BigDecimal mrbPreco, String mrbTipo, Date mrbDataColheita, BigDecimal mrbPeso, String mrbUnidadeMedida, Set mrbVendaprodutoses) {
-       this.mrbIdProduto = mrbIdProduto;
-       this.mrbNomeProduto = mrbNomeProduto;
-       this.mrbPreco = mrbPreco;
-       this.mrbTipo = mrbTipo;
-       this.mrbDataColheita = mrbDataColheita;
-       this.mrbPeso = mrbPeso;
-       this.mrbUnidadeMedida = mrbUnidadeMedida;
-       this.mrbVendaprodutoses = mrbVendaprodutoses;
-    }
-   
+
      @Id 
 
     
@@ -82,21 +67,21 @@ public class MrbProdutos  implements java.io.Serializable {
 
     
     @Column(name="mrb_preco", nullable=false, precision=5)
-    public BigDecimal getMrbPreco() {
+    public double getMrbPreco() {
         return this.mrbPreco;
     }
     
-    public void setMrbPreco(BigDecimal mrbPreco) {
+    public void setMrbPreco(double mrbPreco) {
         this.mrbPreco = mrbPreco;
     }
 
     
     @Column(name="mrb_tipo", nullable=false, length=100)
-    public String getMrbTipo() {
+    public int getMrbTipo() {
         return this.mrbTipo;
     }
     
-    public void setMrbTipo(String mrbTipo) {
+    public void setMrbTipo(int mrbTipo) {
         this.mrbTipo = mrbTipo;
     }
 
@@ -112,35 +97,23 @@ public class MrbProdutos  implements java.io.Serializable {
 
     
     @Column(name="mrb_peso", nullable=false, precision=5)
-    public BigDecimal getMrbPeso() {
+    public double getMrbPeso() {
         return this.mrbPeso;
     }
     
-    public void setMrbPeso(BigDecimal mrbPeso) {
+    public void setMrbPeso(double mrbPeso) {
         this.mrbPeso = mrbPeso;
     }
 
     
     @Column(name="mrb_unidadeMedida", nullable=false, length=10)
-    public String getMrbUnidadeMedida() {
+    public int getMrbUnidadeMedida() {
         return this.mrbUnidadeMedida;
     }
     
-    public void setMrbUnidadeMedida(String mrbUnidadeMedida) {
+    public void setMrbUnidadeMedida(int mrbUnidadeMedida) {
         this.mrbUnidadeMedida = mrbUnidadeMedida;
     }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mrbProdutos")
-    public Set getMrbVendaprodutoses() {
-        return this.mrbVendaprodutoses;
-    }
-    
-    public void setMrbVendaprodutoses(Set mrbVendaprodutoses) {
-        this.mrbVendaprodutoses = mrbVendaprodutoses;
-    }
-
-
-
 
 }
 
