@@ -12,6 +12,7 @@ import tools.Util;
  */
 public class JDlgMrbPagamentos extends javax.swing.JDialog {
 
+    private boolean incluir;
     /**
      * Creates new form JDlgMrbPagamentos
      */
@@ -19,10 +20,33 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Uhh.. Cadastrar Pagamentos?");
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         Util.habilitar(false, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+    }
+
+    public MrbPagamentos viewBean() {
+        MrbPagamentos mrbPagamentos = new MrbPagamentos();
+        int codigo = Util.strToInt(jTxtMrbCodigo.getText());
+        mrbPagamentos.setMrbIdPagamentos(codigo);
+        mrbPagamentos.setMrbTipo(jCboMrbTipo.getSelectedIndex());
+        mrbPagamentos.setMrbStatus(jCboMrbStatus.getSelectedIndex());
+        mrbPagamentos.setMrbConfirmar(jChbMrbConfirmar.isSelected() ? "S" : "N");
+        mrbPagamentos.setMrbCpf(jFmtMrbCpf.getText());
+        mrbPagamentos.setTotal(Util.strToDouble(jTxtMrbValor.getText()));
+        mrbPagamentos.setMrbData(Util.strToDate(jFmtMrbData.getText()));
+        return mrbPagamentos;
+    }
+
+    public void beanView(MrbPagamentos mrbPagamentos) {
+        jTxtMrbCodigo.setText(Util.intToStr(mrbPagamentos.getMrbIdPagamentos()));
+        jCboMrbTipo.setSelectedIndex(mrbPagamentos.getMrbTipo());
+        jCboMrbStatus.setSelectedIndex(mrbPagamentos.getMrbStatus());
+        jChbMrbConfirmar.setSelected("S".equals(mrbPagamentos.getMrbConfirmar()));
+        jFmtMrbCpf.setText(mrbPagamentos.getMrbCpf());
+        jTxtMrbValor.setText(Util.doubleToStr(mrbPagamentos.getTotal()));
+        jFmtMrbData.setText(Util.dateToStr(mrbPagamentos.getMrbData()));
     }
 
     /**
@@ -295,27 +319,33 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgMrbPagamentosPesquisar jDlgPagamentosPesquisar = new JDlgMrbPagamentosPesquisar(null,true);
+        JDlgMrbPagamentosPesquisar jDlgPagamentosPesquisar = new JDlgMrbPagamentosPesquisar(null, true);
         jDlgPagamentosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+        incluir = true;
         Util.habilitar(true, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbCodigo.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
+        incluir = false;
+        Util.habilitar(true, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jFmtMrbCpf.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("deseja excluir o registro?")){
+        if (Util.perguntar("deseja excluir o registro?") == true) {
+            PagamentosDAO pagamentosDAO = new PagamentosDAO();
+            pagamentosDAO.delete(viewBean());
             Util.limpar(jTxtMrbCodigo, jFmtMrbData, jChbMrbConfirmar, jCboMrbTipo, jCboMrbStatus, jTxtMrbValor, jFmtMrbCpf, jFmtMrbData);
             Util.mensagem("Exluido com sucesso!");
         } else {
@@ -325,15 +355,21 @@ public class JDlgMrbPagamentos extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        PagamentosDAO pagamentosDAO = new PagamentosDAO();
+        if (incluir) {
+            pagamentosDAO.insert(viewBean());
+        } else {
+            pagamentosDAO.update(viewBean());
+        }
         Util.habilitar(false, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
-            jBtnAlterar, jFmtMrbCpf, jChbMrbConfirmar, jFmtMrbData, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jChbMrbConfirmar, jFmtMrbData, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtMrbCodigo, jFmtMrbData, jCboMrbStatus, jCboMrbTipo, jTxtMrbValor,
-            jBtnAlterar, jFmtMrbCpf, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jChbMrbConfirmar, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
