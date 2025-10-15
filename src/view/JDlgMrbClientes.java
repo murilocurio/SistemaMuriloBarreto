@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view;
+import bean.MrbCliente;
+import dao.ClientesDAO;
 import tools.Util;
 
 
@@ -28,45 +30,45 @@ public class JDlgMrbClientes extends javax.swing.JDialog {
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }
 
-    public MrbClientes viewBean() {
-        MrbClientes mrbClientes = new MrbClientes();
+    public MrbCliente viewBean() {
+        MrbCliente mrbClientes = new MrbCliente();
         int codigo = Util.strToInt(jTxtMrbCodigo.getText());
-        mrbClientes.setMrbIdClientes(codigo);
+        mrbClientes.setMrbIdCliente(codigo);
         mrbClientes.setMrbNome(jTxtMrbNome.getText());
         mrbClientes.setMrbCpf(jFmtMrbCpf.getText());
         mrbClientes.setMrbRg(jFmtMrbRg.getText());
         mrbClientes.setMrbSexo(jCboMrbSexo.getSelectedIndex());
-        mrbClientes.setMrbData(Util.strToDate(jFmtMrbData.getText()));
+        mrbClientes.setMrbDataNascimento(Util.strToDate(jFmtMrbData.getText()));
         mrbClientes.setMrbEmail(jTxtMrbEmail.getText());
         mrbClientes.setMrbCep(jFmtMrbCep.getText());
         mrbClientes.setMrbEndereco(jTxtMrbEndereco.getText());
         mrbClientes.setMrbBairro(jTxtMrbBairro.getText());
         mrbClientes.setMrbRua(jTxtMrbRua.getText());
-        mrbClientes.setMrbTelefone(jFmtMrbTelefone.getText());
+        mrbClientes.setMrbTelefoneResidencial(jFmtMrbTelefone.getText());
         mrbClientes.setMrbCelular(jFmtMrbCelular.getText());
         mrbClientes.setMrbComplemento(jTxtMrbComplemento.getText());
         mrbClientes.setMrbNumero(jTxtMrbNumero.getText());
-        mrbClientes.setAtivo(jChbMrbAtivo.isSelected() ? "S" : "N");
+        mrbClientes.setMrbAtivo(jChbMrbAtivo.isSelected() ? "S" : "N");
         return mrbClientes;
     }
 
-    public void beanView(MrbClientes mrbClientes) {
-        jTxtMrbCodigo.setText(Util.intToStr(mrbClientes.getMrbIdClientes()));
+    public void beanView(MrbCliente mrbClientes) {
+        jTxtMrbCodigo.setText(Util.intToStr(mrbClientes.getMrbIdCliente()));
         jTxtMrbNome.setText(mrbClientes.getMrbNome());
         jFmtMrbCpf.setText(mrbClientes.getMrbCpf());
         jFmtMrbRg.setText(mrbClientes.getMrbRg());
         jCboMrbSexo.setSelectedIndex(mrbClientes.getMrbSexo());
-        jFmtMrbData.setText(Util.dateToStr(mrbClientes.getMrbData()));
+        jFmtMrbData.setText(Util.dateToStr(mrbClientes.getMrbDataNascimento()));
         jTxtMrbEmail.setText(mrbClientes.getMrbEmail());
         jFmtMrbCep.setText(mrbClientes.getMrbCep());
         jTxtMrbEndereco.setText(mrbClientes.getMrbEndereco());
         jTxtMrbBairro.setText(mrbClientes.getMrbBairro());
         jTxtMrbRua.setText(mrbClientes.getMrbRua());
-        jFmtMrbTelefone.setText(mrbClientes.getMrbTelefone());
+        jFmtMrbTelefone.setText(mrbClientes.getMrbTelefoneResidencial());
         jFmtMrbCelular.setText(mrbClientes.getMrbCelular());
         jTxtMrbComplemento.setText(mrbClientes.getMrbComplemento());
         jTxtMrbNumero.setText(mrbClientes.getMrbNumero());
-        jChbMrbAtivo.setSelected("S".equals(mrbClientes.getAtivo()));
+        jChbMrbAtivo.setSelected("S".equals(mrbClientes.getMrbAtivo()));
     }
 
     /**

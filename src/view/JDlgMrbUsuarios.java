@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MrbUsuario;
+import dao.UsuariosDAO;
 import tools.Util;
 
 /**
@@ -12,6 +14,7 @@ import tools.Util;
  */
 public class JDlgMrbUsuarios extends javax.swing.JDialog {
 
+    private boolean incluir;
     /**
      * Creates new form JDlgMrbUsuarios
      */
@@ -19,11 +22,36 @@ public class JDlgMrbUsuarios extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Cadastrar Usuários");
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
                 jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
                 jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnAlterar);
+    }
+
+    public MrbUsuario viewBean() {
+        MrbUsuario mrbUsuarios = new MrbUsuario();
+        int codigo = Util.strToInt(jTxtMrbCodigo.getText());
+        mrbUsuarios.setMrbIdUsuario(codigo);
+        mrbUsuarios.setMrbNome(jTxtMrbNome.getText());
+        mrbUsuarios.setMrbApelido(jTxtMrbApelido.getText());
+        mrbUsuarios.setMrbCpf(jFmtMrbCpf.getText());
+        mrbUsuarios.setMrbSenha(jPwfMrbSenha.getText());
+        mrbUsuarios.setMrbNivel(jCboMrbNivel.getSelectedIndex());
+        mrbUsuarios.setMrbAtivo(jChbMrbAtivo.isSelected() ? "S" : "N");
+        mrbUsuarios.setMrbDataNascimento(Util.strToDate(jFmtMrbData.getText()));
+        return mrbUsuarios;
+    }
+
+    public void beanView(MrbUsuario mrbUsuario) {
+        jTxtMrbCodigo.setText(Util.intToStr(mrbUsuario.getMrbIdUsuario()));
+        jTxtMrbNome.setText(mrbUsuario.getMrbNome());
+        jTxtMrbApelido.setText(mrbUsuario.getMrbApelido());
+        jFmtMrbCpf.setText(mrbUsuario.getMrbCpf());
+        jPwfMrbSenha.setText(mrbUsuario.getMrbSenha());
+        jCboMrbNivel.setSelectedIndex(mrbUsuario.getMrbNivel());
+        jChbMrbAtivo.setSelected("S".equals(mrbUsuario.getMrbAtivo()));
+        jFmtMrbData.setText(Util.dateToStr(mrbUsuario.getMrbDataNascimento()));
     }
 
     /**
@@ -269,17 +297,21 @@ public class JDlgMrbUsuarios extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+        incluir = false;
         Util.habilitar(true, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
-            jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
-            jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
+                jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbNome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("deseja excluir o registro?")){
+        if (Util.perguntar("deseja excluir o registro?") == true) {
+            UsuariosDAO usuariosDAO = new UsuariosDAO();
+            usuariosDAO.delete(viewBean());
             Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
-                jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo);
+                    jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo);
             Util.mensagem("Exluido com sucesso!");
         } else {
             Util.mensagem("Exclusão cancelada!");
@@ -288,32 +320,42 @@ public class JDlgMrbUsuarios extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        if (incluir) {
+            usuariosDAO.insert(viewBean());
+        } else {
+            usuariosDAO.update(viewBean());
+        }
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
-            jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
-            jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
+                jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
-            jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
-            jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
+                jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgMrbUsuariosPesquisar jDlgUsuariosPesquisar = new JDlgMrbUsuariosPesquisar(null,true);
+        JDlgMrbUsuariosPesquisar jDlgUsuariosPesquisar = new JDlgMrbUsuariosPesquisar(null, true);
         jDlgUsuariosPesquisar.setVisible(true);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
+        Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+        incluir = true;
         Util.habilitar(true, jTxtMrbCodigo, jTxtMrbNome, jCboMrbNivel,
-            jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
-            jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jTxtMrbApelido, jFmtMrbCpf, jFmtMrbData,
+                jPwfMrbSenha, jCboMrbNivel, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbCodigo.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     /**
