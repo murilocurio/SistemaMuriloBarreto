@@ -3,14 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view;
-
 import tools.Util;
+
 
 /**
  *
  * @author a
  */
 public class JDlgMrbClientes extends javax.swing.JDialog {
+
+    private boolean incluir;
 
     /**
      * Creates new form JDlgMrbClientes
@@ -19,11 +21,52 @@ public class JDlgMrbClientes extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Cadastrar Clientes");
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento,jTxtMrbBairro,
-            jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento, jTxtMrbBairro,
+                jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+    }
+
+    public MrbClientes viewBean() {
+        MrbClientes mrbClientes = new MrbClientes();
+        int codigo = Util.strToInt(jTxtMrbCodigo.getText());
+        mrbClientes.setMrbIdClientes(codigo);
+        mrbClientes.setMrbNome(jTxtMrbNome.getText());
+        mrbClientes.setMrbCpf(jFmtMrbCpf.getText());
+        mrbClientes.setMrbRg(jFmtMrbRg.getText());
+        mrbClientes.setMrbSexo(jCboMrbSexo.getSelectedIndex());
+        mrbClientes.setMrbData(Util.strToDate(jFmtMrbData.getText()));
+        mrbClientes.setMrbEmail(jTxtMrbEmail.getText());
+        mrbClientes.setMrbCep(jFmtMrbCep.getText());
+        mrbClientes.setMrbEndereco(jTxtMrbEndereco.getText());
+        mrbClientes.setMrbBairro(jTxtMrbBairro.getText());
+        mrbClientes.setMrbRua(jTxtMrbRua.getText());
+        mrbClientes.setMrbTelefone(jFmtMrbTelefone.getText());
+        mrbClientes.setMrbCelular(jFmtMrbCelular.getText());
+        mrbClientes.setMrbComplemento(jTxtMrbComplemento.getText());
+        mrbClientes.setMrbNumero(jTxtMrbNumero.getText());
+        mrbClientes.setAtivo(jChbMrbAtivo.isSelected() ? "S" : "N");
+        return mrbClientes;
+    }
+
+    public void beanView(MrbClientes mrbClientes) {
+        jTxtMrbCodigo.setText(Util.intToStr(mrbClientes.getMrbIdClientes()));
+        jTxtMrbNome.setText(mrbClientes.getMrbNome());
+        jFmtMrbCpf.setText(mrbClientes.getMrbCpf());
+        jFmtMrbRg.setText(mrbClientes.getMrbRg());
+        jCboMrbSexo.setSelectedIndex(mrbClientes.getMrbSexo());
+        jFmtMrbData.setText(Util.dateToStr(mrbClientes.getMrbData()));
+        jTxtMrbEmail.setText(mrbClientes.getMrbEmail());
+        jFmtMrbCep.setText(mrbClientes.getMrbCep());
+        jTxtMrbEndereco.setText(mrbClientes.getMrbEndereco());
+        jTxtMrbBairro.setText(mrbClientes.getMrbBairro());
+        jTxtMrbRua.setText(mrbClientes.getMrbRua());
+        jFmtMrbTelefone.setText(mrbClientes.getMrbTelefone());
+        jFmtMrbCelular.setText(mrbClientes.getMrbCelular());
+        jTxtMrbComplemento.setText(mrbClientes.getMrbComplemento());
+        jTxtMrbNumero.setText(mrbClientes.getMrbNumero());
+        jChbMrbAtivo.setSelected("S".equals(mrbClientes.getAtivo()));
     }
 
     /**
@@ -409,18 +452,22 @@ public class JDlgMrbClientes extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtMrbCodigo, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento,jTxtMrbBairro,
-            jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+        incluir = false;
+        Util.habilitar(true, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento, jTxtMrbBairro,
+                jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbNome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("deseja excluir o registro?")){
+        if (Util.perguntar("deseja excluir o registro?") == true) {
+            ClientesDAO clientesDAO = new ClientesDAO();
+            clientesDAO.delete(viewBean());
             Util.limpar(jTxtMrbCodigo, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
-            jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento,jTxtMrbBairro,
-            jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo);
+                    jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento, jTxtMrbBairro,
+                    jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo);
             Util.mensagem("Exluido com sucesso!");
         } else {
             Util.mensagem("Exclusão cancelada!");
@@ -429,32 +476,42 @@ public class JDlgMrbClientes extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        ClientesDAO clientesDAO = new ClientesDAO();
+        if (incluir) {
+            clientesDAO.insert(viewBean());
+        } else {
+            clientesDAO.update(viewBean());
+        }
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento,jTxtMrbBairro,
-            jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento, jTxtMrbBairro,
+                jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtMrbCodigo, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento,jTxtMrbBairro,
-            jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento, jTxtMrbBairro,
+                jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgMrbClientesPesquisar jDlgClientesPesquisar = new JDlgMrbClientesPesquisar(null,true);
+        JDlgMrbClientesPesquisar jDlgClientesPesquisar = new JDlgMrbClientesPesquisar(null, true);
         jDlgClientesPesquisar.setVisible(true);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir, jBtnCancelar);
+        Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+        incluir = true;
         Util.habilitar(true, jTxtMrbCodigo, jTxtMrbNome, jFmtMrbData, jTxtMrbEmail, jFmtMrbCelular,
-            jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento,jTxtMrbBairro,
-            jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jFmtMrbCpf, jFmtMrbData, jTxtMrbRua, jTxtMrbNumero, jTxtMrbComplemento, jTxtMrbBairro,
+                jFmtMrbRg, jFmtMrbTelefone, jFmtMrbCep, jCboMrbSexo, jTxtMrbEndereco, jChbMrbAtivo, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtMrbCodigo.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     /**
